@@ -31,12 +31,15 @@ int main(int argc, char* argv[]){
     //Read input file
     fscanf(readFile, "data_block: %lx\nkey: %lx\noperation: %s", &data, &key, opType);
     operation = opType;
-    cout << hex << data << endl << hex << key << endl << operation << endl;
+    cout << setfill('0') << setw(16) << hex << data << endl << hex << key << endl << operation << endl;
     
+    //Choosing which process
     if(operation == "decryption"){
         cout << 1 << endl;
+
     }else if(operation == "encryption"){
         cout << 2 << endl;
+
     }else{
         cout << "Error reading file." << endl;
     }
