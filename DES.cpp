@@ -56,6 +56,8 @@ int main(int argc, char* argv[]){
     n = 3;
     bit  = (n & ( 1 << k )) >> k;
     cout << bit << endl;
+
+    
     fclose(readFile);
     return 0;
 }
