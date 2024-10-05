@@ -5,6 +5,7 @@
 using namespace std;
 
 //g++ -o des DES.cpp
+//./des sample_input_encryption.txt output.txt
 
 //Function Declarations
 unsigned long int decryption();
@@ -50,6 +51,11 @@ int main(int argc, char* argv[]){
         cout << "Error reading file." << endl;
     }
 
+    //get the k-th bit of n
+    int n, k = 1, bit;
+    n = 3;
+    bit  = (n & ( 1 << k )) >> k;
+    cout << bit << endl;
     fclose(readFile);
     return 0;
 }
