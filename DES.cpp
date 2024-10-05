@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <iomanip>
 using namespace std;
 
 //g++ -o des DES.cpp
@@ -14,23 +15,32 @@ int main(int argc, char* argv[]){
     }
 
     //Input file
-    ifstream readingFile(argv[1]);
     FILE* readFile;
     readFile = fopen(argv[1], "r");
 
     //Error
-    if (!readingFile.is_open()) {
+    if (readFile == NULL) {
         cout << "Error opening the file!" << endl;
         return 1;
     }
 
-    string data_blockLine, keyLine, operationLine, opType;
-    unsigned int data, key;
-    cout << "File Content: " << endl;
-    while (cin(readFile, "%9s %X \n %9s %X \n %9s %9s", data_blockLine, &data, keyLine, &key, operationLine, opType) != EOF) {
-        cout << data_blockLine << endl << data << endl << keyLine  << endl << key << endl << operationLine << endl << opType << endl;
+    string operation;
+    char opType[10];
+    unsigned long int data = 0, key = 0;
+    
+    //Read input file
+    fscanf(readFile, "data_block: %lx\nkey: %lx\noperation: %s", &data, &key, opType);
+    operation = opType;
+    cout << hex << data << endl << hex << key << endl << operation << endl;
+    
+    if(operation == "decryption"){
+        cout << 1 << endl;
+    }else if(operation == "encryption"){
+        cout << 2 << endl;
+    }else{
+        cout << "Error reading file." << endl;
     }
 
-    readingFile.close();
+    fclose(readFile);
     return 0;
 }
