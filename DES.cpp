@@ -57,7 +57,7 @@ int main(int argc, char* argv[]){
     bit  = (n & ( 1 << k )) >> k;
 
     //SET the k-th bit of n
-    n = n | 1 << k;
+    n = n | k << k;
 
     //CLEAR the k-th bit of n
     n = n & ~ (1 << k);
@@ -98,5 +98,9 @@ void keys(unsigned long int initialKey){
         }
     }
 
+    int c, d;
     //getting C0 and D0
+    //c0
+    
+    
 }   
