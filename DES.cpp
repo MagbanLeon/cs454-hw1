@@ -52,11 +52,17 @@ int main(int argc, char* argv[]){
     }
 
     //get the k-th bit of n
-    int n, k = 1, bit;
-    n = 3;
+    int n, k, bit;
     bit  = (n & ( 1 << k )) >> k;
     cout << bit << endl;
 
+    //set the k-th bit of n
+    n = n | 1 << k;
+
+    //clear the k-th bit of n
+    n = n & ~ (1 << k);
+
+    //arrays
     unsigned long int cKey[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     unsigned long int dKey[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     unsigned long int keyEntire[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
