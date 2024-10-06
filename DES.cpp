@@ -57,11 +57,11 @@ int main(int argc, char* argv[]){
     bit  = (n & ( 1 << k )) >> k;
     cout << bit << endl;
 
-    unsigned long int cKey[16];
-    unsigned long int dKey[16];
-    unsigned long int keyEntire[16];
-    unsigned long int left[16];
-    unsigned long int right[16];
+    unsigned long int cKey[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    unsigned long int dKey[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    unsigned long int keyEntire[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    unsigned long int left[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    unsigned long int right[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     
     fclose(readFile);
     return 0;
