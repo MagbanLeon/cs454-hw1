@@ -10,7 +10,7 @@ using namespace std;
 //Function Declarations
 unsigned long int decryption();
 unsigned long int encryption();
-void keys(unsigned long int initialKey, unsigned long int cArray[16], unsigned long int dArray[16], unsigned long int keyArray[16]);
+void keys(unsigned long int initialKey, unsigned long int cArray[17], unsigned long int dArray[17], unsigned long int keyArray[16]);
 
 //Main Function
 int main(int argc, char* argv[]){
@@ -63,11 +63,11 @@ int main(int argc, char* argv[]){
     n = n & ~ (1 << k);
 
     //arrays
-    unsigned long int cKey[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-    unsigned long int dKey[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    unsigned long int cKey[17] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    unsigned long int dKey[17] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     unsigned long int keyEntire[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-    unsigned long int left[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-    unsigned long int right[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    unsigned long int left[17] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    unsigned long int right[17] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     
     fclose(readFile);
     return 0;
@@ -82,10 +82,10 @@ unsigned long int encryption(){
 
 }
 
-void keys(unsigned long int initialKey, unsigned long int cArray[16], unsigned long int dArray[16], unsigned long int keyArray[16]){
+void keys(unsigned long int initialKey, unsigned long int cArray[17], unsigned long int dArray[17], unsigned long int keyArray[16]){
     int pc1[56] = {57,49,41,33,25,17,9,1,58,50,42,34,26,18,10,2,59,51,43,35,27,19,11,3,60,52,
     44,36,63,55,47,39,31,23,15,7,62,54,46,38,30,22,14,6,61,53,45,37,29,21,13,5,28,20,12,4};
-    
+
     unsigned long int keyPlus = 0;
     int bit, n, k;
 
@@ -120,18 +120,19 @@ void keys(unsigned long int initialKey, unsigned long int cArray[16], unsigned l
 
     int leftShiftSched[16] = {1,1,2,2,2,2,2,2,1,2,2,2,2,2,2,1};
     //getting Cn and Dn
-    for(int i = 0; i < 16; i++){
-        if(i = 0){
-            cArray[i] = cZ << leftShiftSched[i];
-            dArray[i] = dZ << leftShiftSched[i];
-        }else{
-            cArray[i] = cArray[i-1] << leftShiftSched[i];
-            dArray[i] = dArray[i-1] << leftShiftSched[i];
-        } 
+    cArray[0] = cZ;
+    dArray[0] = dZ;
+    for(int i = 1; i < 17; i++){       
+        cArray[i] = cArray[i-1] << leftShiftSched[i];
+        dArray[i] = dArray[i-1] << leftShiftSched[i];
     }
 
     //getting Kn
     int pc2[48] = {14,17,11,24,1,5,3,28,15,6,21,10,23,19,12,4,26,8,16,7,27,20,13,
     2,41,52, 31,37,47,55,30,40,51,45,33,48,44,49,39,56,34,53,46,42,50,36,29,32};
+    for(int i = 0; i < 16; i++){
+        keyArray[i] = dArray[i+1];
+        
+    }
 
 }   
