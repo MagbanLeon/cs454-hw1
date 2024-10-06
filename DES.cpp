@@ -54,7 +54,7 @@ int main(int argc, char* argv[]){
     int n, k, bit;
 
     //GET the k-th bit of n
-    bit  = (n & ( 1 << k )) >> k;
+    bit = (n & ( 1 << k )) >> k;
 
     //SET the k-th bit of n
     n = n | k << k;
@@ -90,7 +90,7 @@ void keys(unsigned long int initialKey){
 
     //getting keyPlus
     for(int i = 0; i < 56; i++){
-        bit  = (initialKey & ( 1 << pc1[i] )) >> pc1[i];    //get bit from initial key
+        bit = (initialKey & ( 1 << pc1[i] )) >> pc1[i];    //get bit from initial key
         if(bit == 1){
             keyPlus = keyPlus | 1 << i;     //set bit i if bit i in intital key is 1
         }else{
@@ -101,6 +101,13 @@ void keys(unsigned long int initialKey){
     int c, d;
     //getting C0 and D0
     //c0
-    
-    
+
+    //d0
+    d = keyPlus;
+    for(int i = 28; i < 56; i++){
+        bit = (d & ( 1 << i )) >> i;
+        if(bit == 1){
+            d = d & ~ (1 << i);
+        }
+    }
 }   
