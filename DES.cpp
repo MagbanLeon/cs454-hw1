@@ -130,9 +130,27 @@ void keys(unsigned long int initialKey, unsigned long int cArray[17], unsigned l
     //getting Kn
     int pc2[48] = {14,17,11,24,1,5,3,28,15,6,21,10,23,19,12,4,26,8,16,7,27,20,13,
     2,41,52, 31,37,47,55,30,40,51,45,33,48,44,49,39,56,34,53,46,42,50,36,29,32};
-    for(int i = 0; i < 16; i++){
-        keyArray[i] = dArray[i+1];
-        
-    }
 
+    for(int i = 0; i < 16; i++){
+        //Dn
+        keyArray[i] = dArray[i+1];
+
+        //Cn
+        for(int j = 28; j < 56; j++){
+            bit = (cArray[j+1] & ( 1 << j )) >> j;
+            if(bit == 1){
+                keyArray[i] = keyArray[i] | j << j;
+            }
+        }
+        
+        //put through PC2
+        for(int i = 0; i < 48; i++){
+            bit = (keyArray[i] & ( 1 << pc2[i] )) >> pc2[i];    //get bit from Kn
+            if(bit == 1){
+                keyArray[i] = keyArray[i] | 1 << i;     //set bit i if bit i in Kn is 1
+            }else{
+                keyArray[i] = keyArray[i] & ~ (1 << i); //clear bit i if bit i in Kn is 0
+            }
+        }
+    }
 }   
