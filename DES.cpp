@@ -98,11 +98,17 @@ void keys(unsigned long int initialKey){
         }
     }
 
-    int c, d;
+    unsigned long int c = 0, d;
     //getting C0 and D0
-    //c0
+    //c0, take bits 28-56 and put them into 0-27
+    for(int i = 0; i < 28; i++){
+        bit = (keyPlus & ( 1 << (i+28) )) >> (i+28);
+        if(bit == 1){
+            c = c | i << i;
+        }
+    }
 
-    //d0
+    //d0, clear bits 28-55
     d = keyPlus;
     for(int i = 28; i < 56; i++){
         bit = (d & ( 1 << i )) >> i;
