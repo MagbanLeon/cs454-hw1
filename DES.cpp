@@ -10,7 +10,7 @@ using namespace std;
 //Function Declarations
 unsigned long int decryption();
 unsigned long int encryption();
-void keys();
+void keys(unsigned long int initialKey);
 
 //Main Function
 int main(int argc, char* argv[]){
@@ -57,6 +57,11 @@ int main(int argc, char* argv[]){
     bit  = (n & ( 1 << k )) >> k;
     cout << bit << endl;
 
+    unsigned long int cKey[16];
+    unsigned long int dKey[16];
+    unsigned long int keyEntire[16];
+    unsigned long int left[16];
+    unsigned long int right[16];
     
     fclose(readFile);
     return 0;
@@ -71,15 +76,10 @@ unsigned long int encryption(){
 
 }
 
-void keys(){
-    int pc1[56] = {
-	57,49,41,33,25,17,9, 
-	1,58,50,42,34,26,18, 
-	10,2,59,51,43,35,27, 
-	19,11,3,60,52,44,36,		 
-	63,55,47,39,31,23,15, 
-	7,62,54,46,38,30,22, 
-	14,6,61,53,45,37,29, 
-	21,13,5,28,20,12,4 
-	};
+void keys(unsigned long int initialKey){
+    int pc1[56] = {57,49,41,33,25,17,9,1,58,50,42,34,26,18,10,2,59,51,43,35,27,19,11,3,60,52,
+    44,36,63,55,47,39,31,23,15,7,62,54,46,38,30,22,14,6,61,53,45,37,29,21,13,5,28,20,12,4};
+    unsigned long int keyPlus = 0;
+
+
 }
