@@ -352,6 +352,15 @@ unsigned long int functionF(unsigned long int right, unsigned long int key){
         beforeP = (beforeP<<4) | sResult[i];
     }
 
+    //put through P table
+    int pTable[32] = {16,  7, 20, 21, 29, 12, 28, 17,1, 15, 23, 26,5, 18, 31, 10,
+					2,  8, 24, 14, 32, 27,  3,  9, 19, 13, 30,  6,22, 11,  4, 25};
+    for(int i = 0; i < 32; i++){
+        bit = (beforeP & ( 1 << (pTable[i]-1) )) >> (pTable[i]-1);    //get bit from initial key
+        if(bit == 1){
+            finalResult = finalResult | 1 << i;     //set bit i if bit i in intital key is 1
+        }
+    }
 
     return finalResult;
 }
