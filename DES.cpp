@@ -233,9 +233,121 @@ unsigned long int functionF(unsigned long int right, unsigned long int key){
 
     sResult[1] = s2[row][column];
 
-    //s2
+    //s3
     row = 0, column = 0;
+        //getting row
+    bit = (eRxorK & ( 1UL << 35 )) >> 35;
+    if(bit == 1) row = row | 1 << 1;
+    bit = (eRxorK & ( 1UL << 30 )) >> 30;
+    if(bit == 1) row = row | 0 << 0;
+        //getting column
+    bit = (eRxorK & ( 1UL << 34 )) >> 34;
+    if(bit == 1) column = column | 3 << 3;
+    bit = (eRxorK & ( 1UL << 33 )) >> 33;
+    if(bit == 1) column = column | 2 << 2;
+    bit = (eRxorK & ( 1UL << 32 )) >> 32;
+    if(bit == 1) column = column | 1 << 1;
+    bit = (eRxorK & ( 1UL << 31 )) >> 31;
+    if(bit == 1) column = column | 0 << 0;
 
+    sResult[2] = s3[row][column];
+
+    //s4
+    row = 0, column = 0;
+        //getting row
+    bit = (eRxorK & ( 1UL << 29 )) >> 29;
+    if(bit == 1) row = row | 1 << 1;
+    bit = (eRxorK & ( 1UL << 24 )) >> 24;
+    if(bit == 1) row = row | 0 << 0;
+        //getting column
+    bit = (eRxorK & ( 1UL << 28 )) >> 28;
+    if(bit == 1) column = column | 3 << 3;
+    bit = (eRxorK & ( 1UL << 27 )) >> 27;
+    if(bit == 1) column = column | 2 << 2;
+    bit = (eRxorK & ( 1UL << 26 )) >> 26;
+    if(bit == 1) column = column | 1 << 1;
+    bit = (eRxorK & ( 1UL << 25 )) >> 25;
+    if(bit == 1) column = column | 0 << 0;
+
+    sResult[3] = s4[row][column];
+
+    //s5
+    row = 0, column = 0;
+        //getting row
+    bit = (eRxorK & ( 1UL << 23 )) >> 23;
+    if(bit == 1) row = row | 1 << 1;
+    bit = (eRxorK & ( 1UL << 18 )) >> 18;
+    if(bit == 1) row = row | 0 << 0;
+        //getting column
+    bit = (eRxorK & ( 1UL << 22 )) >> 22;
+    if(bit == 1) column = column | 3 << 3;
+    bit = (eRxorK & ( 1UL << 21 )) >> 21;
+    if(bit == 1) column = column | 2 << 2;
+    bit = (eRxorK & ( 1UL << 20 )) >> 20;
+    if(bit == 1) column = column | 1 << 1;
+    bit = (eRxorK & ( 1UL << 19 )) >> 19;
+    if(bit == 1) column = column | 0 << 0;
+
+    sResult[4] = s5[row][column];
+
+    //s6
+    row = 0, column = 0;
+        //getting row
+    bit = (eRxorK & ( 1UL << 17 )) >> 17;
+    if(bit == 1) row = row | 1 << 1;
+    bit = (eRxorK & ( 1UL << 12 )) >> 12;
+    if(bit == 1) row = row | 0 << 0;
+        //getting column
+    bit = (eRxorK & ( 1UL << 16 )) >> 16;
+    if(bit == 1) column = column | 3 << 3;
+    bit = (eRxorK & ( 1UL << 15 )) >> 15;
+    if(bit == 1) column = column | 2 << 2;
+    bit = (eRxorK & ( 1UL << 14 )) >> 14;
+    if(bit == 1) column = column | 1 << 1;
+    bit = (eRxorK & ( 1UL << 13 )) >> 13;
+    if(bit == 1) column = column | 0 << 0;
+
+    sResult[5] = s6[row][column];
+
+    //s7
+    row = 0, column = 0;
+        //getting row
+    bit = (eRxorK & ( 1UL << 11 )) >> 11;
+    if(bit == 1) row = row | 1 << 1;
+    bit = (eRxorK & ( 1UL << 6 )) >> 6;
+    if(bit == 1) row = row | 0 << 0;
+        //getting column
+    bit = (eRxorK & ( 1UL << 10 )) >> 10;
+    if(bit == 1) column = column | 3 << 3;
+    bit = (eRxorK & ( 1UL << 9 )) >> 9;
+    if(bit == 1) column = column | 2 << 2;
+    bit = (eRxorK & ( 1UL << 8 )) >> 8;
+    if(bit == 1) column = column | 1 << 1;
+    bit = (eRxorK & ( 1UL << 7 )) >> 7;
+    if(bit == 1) column = column | 0 << 0;
+
+    sResult[6] = s7[row][column];
+
+    //s8
+    row = 0, column = 0;
+        //getting row
+    bit = (eRxorK & ( 1UL << 5 )) >> 5;
+    if(bit == 1) row = row | 1 << 1;
+    bit = (eRxorK & ( 1UL << 0 )) >> 0;
+    if(bit == 1) row = row | 0 << 0;
+        //getting column
+    bit = (eRxorK & ( 1UL << 4 )) >> 4;
+    if(bit == 1) column = column | 3 << 3;
+    bit = (eRxorK & ( 1UL << 3 )) >> 3;
+    if(bit == 1) column = column | 2 << 2;
+    bit = (eRxorK & ( 1UL << 2 )) >> 2;
+    if(bit == 1) column = column | 1 << 1;
+    bit = (eRxorK & ( 1UL << 1 )) >> 1;
+    if(bit == 1) column = column | 0 << 0;
+
+    sResult[7] = s8[row][column];
+
+    //combine sResults together
     for(int i = 0; i < 8; i++){
         beforeP = (beforeP<<4) | sResult[i];
     }
