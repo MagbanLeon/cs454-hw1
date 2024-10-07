@@ -198,18 +198,18 @@ unsigned long int functionF(unsigned long int right, unsigned long int key){
 
     //s1
         //getting row
-    bit = (eRxorK & ( 1 << 47 )) >> 47;
+    bit = (eRxorK & ( 1UL << 47 )) >> 47;
     if(bit == 1) row = row | 1 << 1;
-    bit = (eRxorK & ( 1 << 42 )) >> 42;
+    bit = (eRxorK & ( 1UL << 42 )) >> 42;
     if(bit == 1) row = row | 0 << 0;
         //getting column
-    bit = (eRxorK & ( 1 << 46 )) >> 46;
+    bit = (eRxorK & ( 1UL << 46 )) >> 46;
     if(bit == 1) column = column | 3 << 3;
-    bit = (eRxorK & ( 1 << 45 )) >> 45;
+    bit = (eRxorK & ( 1UL << 45 )) >> 45;
     if(bit == 1) column = column | 2 << 2;
-    bit = (eRxorK & ( 1 << 44 )) >> 44;
+    bit = (eRxorK & ( 1UL << 44 )) >> 44;
     if(bit == 1) column = column | 1 << 1;
-    bit = (eRxorK & ( 1 << 43 )) >> 43;
+    bit = (eRxorK & ( 1UL << 43 )) >> 43;
     if(bit == 1) column = column | 0 << 0;
 
     sResult[0] = s1[row][column];
@@ -217,18 +217,18 @@ unsigned long int functionF(unsigned long int right, unsigned long int key){
     //s2
     row = 0, column = 0;
         //getting row
-    bit = (eRxorK & ( 1 << 41 )) >> 41;
+    bit = (eRxorK & ( 1UL << 41 )) >> 41;
     if(bit == 1) row = row | 1 << 1;
-    bit = (eRxorK & ( 1 << 36 )) >> 36;
+    bit = (eRxorK & ( 1UL << 36 )) >> 36;
     if(bit == 1) row = row | 0 << 0;
         //getting column
-    bit = (eRxorK & ( 1 << 40 )) >> 40;
+    bit = (eRxorK & ( 1UL << 40 )) >> 40;
     if(bit == 1) column = column | 3 << 3;
-    bit = (eRxorK & ( 1 << 39 )) >> 39;
+    bit = (eRxorK & ( 1UL << 39 )) >> 39;
     if(bit == 1) column = column | 2 << 2;
-    bit = (eRxorK & ( 1 << 38 )) >> 38;
+    bit = (eRxorK & ( 1UL << 38 )) >> 38;
     if(bit == 1) column = column | 1 << 1;
-    bit = (eRxorK & ( 1 << 37 )) >> 37;
+    bit = (eRxorK & ( 1UL << 37 )) >> 37;
     if(bit == 1) column = column | 0 << 0;
 
     sResult[1] = s2[row][column];
@@ -240,7 +240,7 @@ unsigned long int functionF(unsigned long int right, unsigned long int key){
         beforeP = (beforeP<<4) | sResult[i];
     }
 
-    
+
     return finalResult;
 }
 
