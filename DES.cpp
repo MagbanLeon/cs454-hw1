@@ -191,8 +191,56 @@ unsigned long int functionF(unsigned long int right, unsigned long int key){
                     {7, 11,  4,  1,  9, 12, 14,  2,  0,  6, 10, 13, 15,  3,  5,  8},
                     {2,  1, 14,  7,  4, 10,  8, 13, 15, 12,  9,  0,  3,  5,  6, 11}};
 
+    eRxorK; //48 bits
     
+    int sResult[8] = {0,0,0,0,0,0,0,0};
+    int row = 0, column = 0;
 
+    //s1
+        //getting row
+    bit = (eRxorK & ( 1 << 47 )) >> 47;
+    if(bit == 1) row = row | 1 << 1;
+    bit = (eRxorK & ( 1 << 42 )) >> 42;
+    if(bit == 1) row = row | 0 << 0;
+        //getting column
+    bit = (eRxorK & ( 1 << 46 )) >> 46;
+    if(bit == 1) column = column | 3 << 3;
+    bit = (eRxorK & ( 1 << 45 )) >> 45;
+    if(bit == 1) column = column | 2 << 2;
+    bit = (eRxorK & ( 1 << 44 )) >> 44;
+    if(bit == 1) column = column | 1 << 1;
+    bit = (eRxorK & ( 1 << 43 )) >> 43;
+    if(bit == 1) column = column | 0 << 0;
+
+    sResult[0] = s1[row][column];
+
+    //s2
+    row = 0, column = 0;
+        //getting row
+    bit = (eRxorK & ( 1 << 41 )) >> 41;
+    if(bit == 1) row = row | 1 << 1;
+    bit = (eRxorK & ( 1 << 36 )) >> 36;
+    if(bit == 1) row = row | 0 << 0;
+        //getting column
+    bit = (eRxorK & ( 1 << 40 )) >> 40;
+    if(bit == 1) column = column | 3 << 3;
+    bit = (eRxorK & ( 1 << 39 )) >> 39;
+    if(bit == 1) column = column | 2 << 2;
+    bit = (eRxorK & ( 1 << 38 )) >> 38;
+    if(bit == 1) column = column | 1 << 1;
+    bit = (eRxorK & ( 1 << 37 )) >> 37;
+    if(bit == 1) column = column | 0 << 0;
+
+    sResult[1] = s2[row][column];
+
+    //s2
+    row = 0, column = 0;
+
+    for(int i = 0; i < 8; i++){
+        beforeP = (beforeP<<4) | sResult[i];
+    }
+
+    
     return finalResult;
 }
 
