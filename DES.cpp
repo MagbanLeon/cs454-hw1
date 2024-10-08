@@ -9,7 +9,7 @@ using namespace std;
 //./des sample_input_encryption.txt output.txt
 
 //Function Declarations
-unsigned long int decryption(unsigned long int keyArray[16], unsigned long int message, unsigned long int lSide[17], unsigned long int rSide[17]);
+unsigned long int decryption(unsigned long int keyArray[16], unsigned long int encrypted, unsigned long int lSide[17], unsigned long int rSide[17]);
 unsigned long int encryption(unsigned long int keyArray[16], unsigned long int message, unsigned long int lSide[17], unsigned long int rSide[17]);
 void keys(unsigned long int initialKey, unsigned long int cArray[17], unsigned long int dArray[17], unsigned long int keyArray[16]);
 void lefRightIterations(unsigned long int left[17], unsigned long int right[17], unsigned long int keys[16]);
@@ -60,37 +60,46 @@ int main(int argc, char* argv[]){
     }else if(operation == "encryption"){
         answer = encryption(keyEntire, data, left, right);
         
-        //Printing to file
-        for(int i = 0; i < 17; i++){
-            bitset<28> n1 (cKey[i]);
-            myfile << "C" << i << "=" << setfill('0') << setw(28) << n1.to_string() << endl;
-            bitset<28> n2 (dKey[i]);
-            myfile << "D" << i << "=" << setfill('0') << setw(28) << n2.to_string() << endl;
-        }
-        myfile << endl;
-        for(int i = 0; i < 17; i++){
-            bitset<48> n3 (keyEntire[i]);
-            myfile << "K" << i+1 << "=" << setfill('0') << setw(48) << n3.to_string() << endl;
-        }
-        myfile << endl;
-        for(int i = 0; i < 17; i++){
-            bitset<32> n4 (left[i]);
-            myfile << "L" << i << "=" << setfill('0') << setw(32) << n4.to_string() << endl;
-            bitset<32> n5 (right[i]);
-            myfile << "R" << i << "=" << setfill('0') << setw(32) << n5.to_string() << endl;
-        }
-        myfile << endl << "Result=" << setfill('0') << setw(16) << uppercase << hex << uintptr_t(answer) << endl;
+        
     }else{
         cout << "Error reading file." << endl;
     }
+    //Printing to file
+    for(int i = 0; i < 17; i++){
+        bitset<28> n1 (cKey[i]);
+        myfile << "C" << i << "=" << setfill('0') << setw(28) << n1.to_string() << endl;
+        bitset<28> n2 (dKey[i]);
+        myfile << "D" << i << "=" << setfill('0') << setw(28) << n2.to_string() << endl;
+    }
+    myfile << endl;
+    for(int i = 0; i < 17; i++){
+        bitset<48> n3 (keyEntire[i]);
+        myfile << "K" << i+1 << "=" << setfill('0') << setw(48) << n3.to_string() << endl;
+    }
+    myfile << endl;
+    for(int i = 0; i < 17; i++){
+        bitset<32> n4 (left[i]);
+        myfile << "L" << i << "=" << setfill('0') << setw(32) << n4.to_string() << endl;
+        bitset<32> n5 (right[i]);
+        myfile << "R" << i << "=" << setfill('0') << setw(32) << n5.to_string() << endl;
+    }
+    myfile << endl << "Result=" << setfill('0') << setw(16) << uppercase << hex << uintptr_t(answer) << endl;
     myfile.close();
     
     return 0;
 }
 
 //Function Definitions
-unsigned long int decryption(unsigned long int keyArray[16], unsigned long int message, unsigned long int lSide[17], unsigned long int rSide[17]){
-
+unsigned long int decryption(unsigned long int keyArray[16], unsigned long int encrypted, unsigned long int lSide[17], unsigned long int rSide[17]){
+    int invPerm[64] = { 	40 ,8  ,48 ,16 ,56 ,24 ,64 ,32 ,
+				39 ,7  ,47 ,15 ,55 ,23 ,63 ,31 ,
+				38 ,6  ,46 ,14 ,54 ,22 ,62 ,30 ,
+				37 ,5  ,45 ,13 ,53 ,21 ,61 ,29 ,
+				36 ,4  ,44 ,12 ,52 ,20 ,60 ,28 ,
+				35 ,3  ,43 ,11 ,51 ,19 ,59 ,27 ,
+				34 ,2  ,42 ,10 ,50 ,18 ,58 ,26 ,
+				33 ,1  ,41 ,9  ,49 ,17 ,57 ,25 };
+    
 }
 
 unsigned long int encryption(unsigned long int keyArray[16], unsigned long int message, unsigned long int lSide[17], unsigned long int rSide[17]){
