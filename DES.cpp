@@ -14,7 +14,7 @@ void keys(unsigned long int initialKey, unsigned long int cArray[17], unsigned l
 
 unsigned long int decryption(unsigned long int keyArray[16], unsigned long int encrypted, unsigned long int lSide[17], unsigned long int rSide[17]);
 void decryptLeftRight(unsigned long int left[17], unsigned long int right[17], unsigned long int keys[16]);
-unsigned long int undoF(unsigned long int right, unsigned long int key);
+unsigned long int undoF(unsigned long int finalResult, unsigned long int key);
 
 unsigned long int encryption(unsigned long int keyArray[16], unsigned long int message, unsigned long int lSide[17], unsigned long int rSide[17]);
 void lefRightIterations(unsigned long int left[17], unsigned long int right[17], unsigned long int keys[16]);
@@ -155,10 +155,10 @@ void decryptLeftRight(unsigned long int left[17], unsigned long int right[17], u
         left[i] = right[i+1] ^ undoF(right[i], keys[i]);
     }
 }
-unsigned long int undoF(unsigned long int right, unsigned long int key){
+unsigned long int undoF(unsigned long int finalResult, unsigned long int key){
     int pTable[32] = {16,  7, 20, 21, 29, 12, 28, 17,1, 15, 23, 26,5, 18, 31, 10,
 					2,  8, 24, 14, 32, 27,  3,  9, 19, 13, 30,  6,22, 11,  4, 25};
-    unsigned long int eR = 0, eRxorK = 0, beforeP = 0, finalResult = 0;
+    unsigned long int eR = 0, eRxorK = 0, beforeP = 0, right = 0;
     int bit = 0;
     int sResult[8] = {0,0,0,0,0,0,0,0};
     int row = 0, column = 0;
@@ -172,8 +172,21 @@ unsigned long int undoF(unsigned long int right, unsigned long int key){
     for(int i = 0; i < 8; i++){
         sResult[i] = (sResult[i]<<4) | beforeP;
     }
-    
 
+
+
+
+    eR = eRxorK ^ key;
+
+    int eTable[] =  {32,1,2,3,4,5,4,5,6,7,8,9,8,9,10,11,12,13,12,13,14,15,16,17,
+                    16,17,18,19,20,21,20,21,22,23,24,25,24,25,26,27,28,29,28,29,30,31,32,1};
+    for(int i = 0; i < 56; i++){
+        bit = (eR & ( 1 << i )) >> i;    
+        if(bit == 1){
+            right = right | 1 << (eTable[i]-1);     
+        }
+    }
+    return right;
 }
 unsigned long int encryption(unsigned long int keyArray[16], unsigned long int message, unsigned long int lSide[17], unsigned long int rSide[17]){
     int ipTable[64] = {58, 50, 42, 34, 26, 18, 10, 2,
@@ -302,7 +315,6 @@ unsigned long int functionF(unsigned long int right, unsigned long int key){
                     {7, 11,  4,  1,  9, 12, 14,  2,  0,  6, 10, 13, 15,  3,  5,  8},
                     {2,  1, 14,  7,  4, 10,  8, 13, 15, 12,  9,  0,  3,  5,  6, 11}};
 
-    eRxorK; //48 bits
     
     int sResult[8] = {0,0,0,0,0,0,0,0};
     int row = 0, column = 0;
