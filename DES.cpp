@@ -9,9 +9,14 @@ using namespace std;
 //./des sample_input_encryption.txt output.txt
 
 //Function Declarations
-unsigned long int decryption(unsigned long int keyArray[16], unsigned long int encrypted, unsigned long int lSide[17], unsigned long int rSide[17]);
-unsigned long int encryption(unsigned long int keyArray[16], unsigned long int message, unsigned long int lSide[17], unsigned long int rSide[17]);
 void keys(unsigned long int initialKey, unsigned long int cArray[17], unsigned long int dArray[17], unsigned long int keyArray[16]);
+
+
+unsigned long int decryption(unsigned long int keyArray[16], unsigned long int encrypted, unsigned long int lSide[17], unsigned long int rSide[17]);
+void decryptLeftRight(unsigned long int left[17], unsigned long int right[17], unsigned long int keys[16]);
+unsigned long int undoF(unsigned long int right, unsigned long int key);
+
+unsigned long int encryption(unsigned long int keyArray[16], unsigned long int message, unsigned long int lSide[17], unsigned long int rSide[17]);
 void lefRightIterations(unsigned long int left[17], unsigned long int right[17], unsigned long int keys[16]);
 unsigned long int functionF(unsigned long int right, unsigned long int key);
 
@@ -105,8 +110,71 @@ unsigned long int decryption(unsigned long int keyArray[16], unsigned long int e
             next = next | 1 << (invPerm[i]-1);     //set bit i if bit i in intital key is 1
         }
     }
-}
+    //R16, take bits 32-63 and put them into 0-32
+    for(int i = 0; i < 32; i++){
+        bit = (next & ( 1 << (i+32) )) >> (i+32);
+        if(bit == 1){
+            rSide[16] = rSide[16] | i << i;
+        }
+    }
 
+    //L16, clear bits 32-63
+    lSide[16] = next;
+    for(int i = 32; i < 64; i++){
+        bit = (lSide[16] & ( 1 << i )) >> i;
+        if(bit == 1){
+            lSide[16] = lSide[16] & ~ (1 << i);
+        }
+    }
+    decryptLeftRight(lSide, rSide, keyArray);
+    unsigned long int afterPerm = lSide[0];
+    afterPerm = (afterPerm<<32) | rSide[0];
+
+    int ipTable[64] = {58, 50, 42, 34, 26, 18, 10, 2,
+				    60, 52, 44, 36, 28, 20, 12, 4,
+                    62, 54, 46, 38, 30, 22, 14, 6,
+                    64, 56, 48, 40, 32, 24, 16, 8,
+                    57, 49, 41, 33, 25, 17,  9, 1,
+                    59, 51, 43, 35, 27, 19, 11, 3,
+                    61, 53, 45, 37, 29, 21, 13, 5,
+                    63, 55, 47, 39, 31, 23, 15, 7};
+    unsigned long int original = 0;
+    for(int i = 0; i < 64; i++){
+        bit = (afterPerm & ( 1 << i )) >> i;    //get bit from initial key
+        if(bit == 1){
+            original = original | 1 << (ipTable[i]-1);     //set bit i if bit i in intital key is 1
+        }
+    }
+    return original;
+}
+void decryptLeftRight(unsigned long int left[17], unsigned long int right[17], unsigned long int keys[16]){
+    for(int i = 15; i > -1; i--){
+        //left[i] = right[i-1];
+        right[i] = left[i+1];
+        //right[i] = left[i-1] ^ functionF(right[i-1], keys[i]);
+        left[i] = right[i+1] ^ undoF(right[i], keys[i]);
+    }
+}
+unsigned long int undoF(unsigned long int right, unsigned long int key){
+    int pTable[32] = {16,  7, 20, 21, 29, 12, 28, 17,1, 15, 23, 26,5, 18, 31, 10,
+					2,  8, 24, 14, 32, 27,  3,  9, 19, 13, 30,  6,22, 11,  4, 25};
+    unsigned long int eR = 0, eRxorK = 0, beforeP = 0, finalResult = 0;
+    int bit = 0;
+    int sResult[8] = {0,0,0,0,0,0,0,0};
+    int row = 0, column = 0;
+
+    for(int i = 0; i < 32; i++){
+        bit = (finalResult & ( 1 << i )) >> i; 
+        if(bit == 1){
+            beforeP = beforeP | 1 << (pTable[i]-1);  
+        }
+    }
+    for(int i = 0; i < 8; i++){
+        sResult[i] = (sResult[i]<<4) | beforeP;
+    }
+    
+
+}
 unsigned long int encryption(unsigned long int keyArray[16], unsigned long int message, unsigned long int lSide[17], unsigned long int rSide[17]){
     int ipTable[64] = {58, 50, 42, 34, 26, 18, 10, 2,
 				    60, 52, 44, 36, 28, 20, 12, 4,
