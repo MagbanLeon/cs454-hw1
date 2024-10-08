@@ -59,8 +59,6 @@ int main(int argc, char* argv[]){
         answer = decryption(keyEntire, data, left, right);
     }else if(operation == "encryption"){
         answer = encryption(keyEntire, data, left, right);
-        
-        
     }else{
         cout << "Error reading file." << endl;
     }
@@ -91,7 +89,7 @@ int main(int argc, char* argv[]){
 
 //Function Definitions
 unsigned long int decryption(unsigned long int keyArray[16], unsigned long int encrypted, unsigned long int lSide[17], unsigned long int rSide[17]){
-    int invPerm[64] = { 	40 ,8  ,48 ,16 ,56 ,24 ,64 ,32 ,
+    int invPerm[64] = { 40 ,8  ,48 ,16 ,56 ,24 ,64 ,32 ,
 				39 ,7  ,47 ,15 ,55 ,23 ,63 ,31 ,
 				38 ,6  ,46 ,14 ,54 ,22 ,62 ,30 ,
 				37 ,5  ,45 ,13 ,53 ,21 ,61 ,29 ,
@@ -99,7 +97,14 @@ unsigned long int decryption(unsigned long int keyArray[16], unsigned long int e
 				35 ,3  ,43 ,11 ,51 ,19 ,59 ,27 ,
 				34 ,2  ,42 ,10 ,50 ,18 ,58 ,26 ,
 				33 ,1  ,41 ,9  ,49 ,17 ,57 ,25 };
-    
+    int bit;
+    unsigned long int next = 0;
+    for(int i = 0; i < 64; i++){
+        bit = (encrypted & ( 1 << i )) >> i;    //get bit from initial key
+        if(bit == 1){
+            next = next | 1 << (invPerm[i]-1);     //set bit i if bit i in intital key is 1
+        }
+    }
 }
 
 unsigned long int encryption(unsigned long int keyArray[16], unsigned long int message, unsigned long int lSide[17], unsigned long int rSide[17]){
